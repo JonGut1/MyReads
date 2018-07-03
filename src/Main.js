@@ -3,16 +3,16 @@ import React, { Component } from 'react'
 function CurrentlyReading(props) {
 	return (
 		<div className='currentlyReading'>
-			<span>Currently Reading</span>
-			<ul>
+			<span className='title'>Currently Reading</span>
+			<ul className='list'>
 				{props.currentlyReading.map(book => (
-					<li key={book.id}>
+					<li className='listItem' key={book.id}>
 						<img src={book.imageLinks.thumbnail}/>
-						<span>{book.title}</span>
-							<ul>
+						<span className='bookTitle'>{book.title}</span>
+							<ul className='authorsCont'>
 								{book.authors.map(author => (
 								<li key={author + book.title}>
-									<span>{author}</span>
+									<span className='authors'>{author}</span>
 								</li>
 								))}
 							</ul>
@@ -26,16 +26,16 @@ function CurrentlyReading(props) {
 function WantToRead(props) {
 	return (
 		<div className='wantToRead'>
-			<span>Want To Reading</span>
-			<ul>
+			<span className='title'>Want To Read</span>
+			<ul className='list'>
 				{props.wantToRead.map(book => (
-					<li key={book.id}>
+					<li className='listItem' key={book.id}>
 						<img src={book.imageLinks.thumbnail}/>
-						<span>{book.title}</span>
-							<ul>
+						<span className='bookTitle'>{book.title}</span>
+							<ul className='authorsCont'>
 								{book.authors.map(author => (
 								<li key={author + book.title}>
-									<span>{author}</span>
+									<span className='authors'>{author}</span>
 								</li>
 								))}
 							</ul>
@@ -49,16 +49,16 @@ function WantToRead(props) {
 function Read(props) {
 	return (
 		<div className='read'>
-			<span>Read</span>
-			<ul>
+			<span className='title'>Read</span>
+			<ul className='list'>
 				{props.read.map(book => (
-					<li key={book.id}>
+					<li className='listItem' key={book.id}>
 						<img src={book.imageLinks.thumbnail}/>
-						<span>{book.title}</span>
-							<ul>
+						<span className='bookTitle'>{book.title}</span>
+							<ul className='authorsCont'>
 								{book.authors.map(author => (
 								<li key={author + book.title}>
-									<span>{author}</span>
+									<span className='authors'>{author}</span>
 								</li>
 								))}
 							</ul>
