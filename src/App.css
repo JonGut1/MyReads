@@ -1,28 +1,99 @@
-.App {
-  text-align: center;
+header {
+  height: 20vh;
+  background: linear-gradient(to bottom right, #F5F6CE, #FA5858);
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+header .title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3em;
+  width: 100%;
+  height: 70%;
+  font-family: 'Galada', cursive;
+  text-shadow: 0px 5px rgba(0,0,0,0.2);
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+nav {
+  width: 100%;
+  height: 30%;
 }
 
-.App-title {
-  font-size: 1.5em;
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
-.App-intro {
-  font-size: large;
+nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+nav li {
+  display: flex;
+  justify-content: center;
+  width: calc(100% / 3);
+  font-family: 'Acme', sans-serif;
+  font-size: 20px;
+}
+
+/* main lists */
+
+.currentlyReading, .wantToRead, .read {
+  height: 60vh;
+}
+
+.currentlyReading .title, .wantToRead .title, .read .title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  height: 15%;
+  width: 100%;
+  border-bottom: 1px solid #E6E6E6;
+}
+
+.currentlyReading .list, .wantToRead .list, .read .list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85%;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.currentlyReading .list .listItem, .wantToRead .list .listItem, .read .list .listItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 20%;
+  height: 80%;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.bookTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: wrap;
+  font-size: 16px;
+}
+
+.authorsCont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 20%;
+  width: 100%;
+}
+
+.authors {
+  font-size: 16px;
 }
