@@ -24,22 +24,37 @@ class App extends Component {
     });
   }
 
+  changeShelf() {
+
+  }
+
   sortBooks(response) {
     response.forEach(book => {
-      if (book.shelf === 'currentlyReading') {
         this.setState(current => ({
-          currentlyReading: current.currentlyReading.concat([ book ])
+          [book.shelf]: current[book.shelf].concat([ book ])
         }));
-      } else if (book.shelf === 'wantToRead') {
-        this.setState(current => ({
-          wantToRead: current.wantToRead.concat([ book ])
-        }));
-      } else if (book.shelf === 'read') {
-        this.setState(current => ({
-          read: current.read.concat([ book ])
-        }));
-      }
     });
+  }
+
+  changeShelf(book, checker) {
+    if (book.shelf !== checker) {
+      const index = this.state[book.shelf].indexOf(book);
+      const copy = this.state[book.shelf];
+      copy.splice(index, 1);
+
+      const bookChange = book;
+      bookChange.shelf = checker;
+
+      this.setState(state => ({
+          [book.shelf]: copy,
+          [checker]: state[checker].concat([ bookChange ]),
+        }))
+
+      BooksAPI.update(book, checker).then(response => {
+        console.log(response);
+        console.log(this.state);
+      });
+    }
   }
 
   render() {
@@ -53,7 +68,14 @@ class App extends Component {
             currentlyReading={this.state.currentlyReading}
             wantToRead={this.state.wantToRead}
             read={this.state.read}
+            changeShelf={(book, checker) => this.changeShelf(book, checker)}
             />
+          </div>
+        )}
+        />
+        <Route path='/search' render={() => (
+          <div>
+            <Header/>
           </div>
         )}
         />
