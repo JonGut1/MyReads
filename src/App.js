@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom'
 import Main from './Main'
 import * as BooksAPI from './BooksAPI'
 import Header from './Header'
+import Search from './Search'
 
 class App extends Component {
 
@@ -24,10 +25,6 @@ class App extends Component {
     });
   }
 
-  changeShelf() {
-
-  }
-
   sortBooks(response) {
     response.forEach(book => {
         this.setState(current => ({
@@ -37,18 +34,23 @@ class App extends Component {
   }
 
   changeShelf(book, checker) {
-    if (book.shelf !== checker) {
+    if (book.shelf !== checker && book.shelf) {
       const index = this.state[book.shelf].indexOf(book);
       const copy = this.state[book.shelf];
       copy.splice(index, 1);
 
       const bookChange = book;
       bookChange.shelf = checker;
-
-      this.setState(state => ({
+      if (checker === 'none') {
+        this.setState(state => ({
+          [book.shelf]: copy,
+        }))
+      } else {
+        this.setState(state => ({
           [book.shelf]: copy,
           [checker]: state[checker].concat([ bookChange ]),
         }))
+      }
 
       BooksAPI.update(book, checker).then(response => {
         console.log(response);
@@ -76,6 +78,10 @@ class App extends Component {
         <Route path='/search' render={() => (
           <div>
             <Header/>
+            <Search
+            changeShelf={(book, checker) => this.changeShelf(book, checker)}
+            allBooks={this.state.allBooks}
+            />
           </div>
         )}
         />
