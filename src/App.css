@@ -1,5 +1,5 @@
 header {
-  height: 20vh;
+  height: 15vh;
   background: linear-gradient(to bottom right, #F5F6CE, #FA5858);
 }
 
@@ -9,14 +9,20 @@ header .title {
   align-items: center;
   font-size: 3em;
   width: 100%;
-  height: 70%;
+  height: 100%;
+  color: black;
   font-family: 'Galada', cursive;
   text-shadow: 0px 5px rgba(0,0,0,0.2);
+  transition: 0.5s;
 }
 
-nav {
-  width: 100%;
-  height: 30%;
+header .title:hover {
+  transition: 0.5s;
+  color: white;
+}
+
+header .linkTag {
+  text-decoration: none;
 }
 
 ul {
@@ -25,56 +31,116 @@ ul {
   margin: 0;
 }
 
-nav ul {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-nav li {
-  display: flex;
-  justify-content: center;
-  width: calc(100% / 3);
-  font-family: 'Acme', sans-serif;
-  font-size: 20px;
-}
-
 /* main lists */
 
 .currentlyReading, .wantToRead, .read {
-  height: 60vh;
+  height: 65vh;
 }
 
-.currentlyReading .title, .wantToRead .title, .read .title {
+.titleBar {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  flex-direction: row;
   height: 15%;
   width: 100%;
   border-bottom: 1px solid #E6E6E6;
 }
 
-.currentlyReading .list, .wantToRead .list, .read .list {
+.title {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 85%;
+  font-size: 24px;
+  height: 100%;
+  width: 80%;
+}
+
+.buttonViewCont {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.listView, .gridView {
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 5em;
+  height: 5em;
+  border: none;
+  background-color: white;
+  padding: 0;
+  transition: 0.3s;
+  border-radius: 50px;
+}
+
+.listView:hover, .gridView:hover {
+  background-color: #FA8258;
+  transition: 0.3s;
+}
+
+.listView .glyphicon:hover, .gridView .glyphicon:hover {
+  color: white;
+  transition: 0.3s;
+}
+
+.listView .glyphicon, .gridView .glyphicon {
   width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: #FA8258;
+  padding: 0;
+  margin: 0;
+  margin: auto;
+  transition: 0.3s;
+}
+
+.list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 85%;
+  width: 70%;
+  margin-right: auto;
+  margin-left: auto;
   overflow-x: scroll;
 }
 
-.currentlyReading .list .listItem, .wantToRead .list .listItem, .read .list .listItem {
+.list[viewtype='grid'] {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 85%;
+  overflow-x: hidden;
+}
+
+.list[viewtype='search'] {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  min-height: 85%;
+}
+
+.list[viewtype='search'] .listItem {
+  margin-top: 3em;
+}
+
+.list .listItem {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 20%;
-  height: 80%;
+  width: 300px;
+  height: 400px;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
   margin-left: 10px;
   margin-right: 10px;
+  position: relative;
 }
 
 .bookTitle {
@@ -83,6 +149,9 @@ nav li {
   align-items: center;
   overflow: wrap;
   font-size: 16px;
+  height: 20%;
+  width: 90%;
+  overflow: auto;
 }
 
 .authorsCont {
@@ -91,9 +160,183 @@ nav li {
   align-items: center;
   flex-direction: column;
   height: 20%;
-  width: 100%;
+  width: 90%;
+  overflow: auto;
+}
+
+.list .imgCont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 80%;
+  height: 60%;
+}
+
+.list img {
+  height: 90%;
 }
 
 .authors {
   font-size: 16px;
+}
+
+.list .expand {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.2);
+  width: 4em;
+  height: 4em;
+  padding: 0;
+  background-color: #FA8258;
+  transition: 0.2s;
+}
+
+
+
+.list .expand:hover {
+  transition: 0.2s;
+  transform: scale(1.2);
+}
+
+.list .glyphicon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: white;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.dropDownList {
+  position: absolute;
+  z-index: 1;
+  width: 80%;
+  height: 50%;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+  background-color: white;
+  bottom: -50%;
+  right: -25%;
+  animation-name: dropDown;
+  animation-duration: 0.3s;
+}
+
+@keyframes dropDown {
+    0%   {bottom: 10%; right: 10%; height: 0%; width: 0%; opacity: 0;}
+    100% {bottom: -50%; right: -25%; height: 50%; width: 80%;}
+}
+
+.dropDownList li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 25%;
+  color: #FA8258;
+  transition: 0.2s;
+}
+
+.dropDownList li .glyphicon {
+  visibility: hidden;
+  color: black;
+  padding: 0;
+  margin: 0;
+  margin-right: 1em;
+  width: 5%;
+}
+
+.dropDownList li:hover {
+  cursor: pointer;
+  transition: 0.2s;
+  transform: scale(1.1);
+  background-color: #FA8258;
+  color: white;
+}
+
+.dropDownList li[select='true'] .glyphicon {
+  visibility: visible;
+}
+
+.readingStatus {
+  position: absolute;
+  z-index: 1;
+  border-radius: 30px;
+  display: block;
+  background-color: silver;
+  top: -2.5%;
+  left: 10%;
+  width: 10%;
+  height: 5%;
+}
+
+.readingStatus[sort='currentlyReading'] {
+  background-color: #FAAC58;
+}
+
+.readingStatus[sort='wantToRead'] {
+  background-color: #5882FA;
+}
+
+.readingStatus[sort='read'] {
+  background-color: #82FA58;
+}
+
+.readingStatus[sort='none'] {
+  background-color: silver;
+}
+
+.addBook {
+  position: fixed;
+  z-index: 1;
+  bottom: 7%;
+  left: 7%;
+  width: 5em;
+  height: 5em;
+  border-radius: 50px;
+  border: none;
+  background-color: #FA8258;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.addBook:hover {
+  transition: 0.3s;
+  transform: scale(1.2);
+}
+.addBook .glyphicon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  color: white;
+  width: 100%;
+  height: 100%;
+}
+
+/* search screen */
+
+.inputCont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 8vh;
+  margin-top: 1em;
+}
+
+.inputField {
+  font-size: 30px;
+  border: none;
+  padding-left: 1em;
+  padding-right: 1em;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.4);
+  width: 97%;
+  height: 97%;
 }
