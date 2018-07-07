@@ -77,6 +77,22 @@ ul {
   border-radius: 50px;
 }
 
+.listView[viewtype='list'] {
+  background-color: #FA8258;
+}
+
+.listView[viewtype='list'] .glyphicon{
+  color: white;
+}
+
+.gridView[viewtype='grid'] {
+  background-color: #FA8258;
+}
+
+.gridView[viewtype='grid'] .glyphicon{
+  color: white;
+}
+
 .listView:hover, .gridView:hover {
   background-color: #FA8258;
   transition: 0.3s;
@@ -259,6 +275,11 @@ ul {
   color: white;
 }
 
+.moreInfoLink {
+  width: 100%;
+  height: 100%;
+}
+
 .dropDownList li[select='true'] .glyphicon {
   visibility: visible;
 }
@@ -317,6 +338,36 @@ ul {
   color: white;
   width: 100%;
   height: 100%;
+}
+
+.deletedBooks {
+  position: fixed;
+  z-index: 1;
+  top: 30%;
+  left: 5%;
+  width: 5em;
+  height: 5em;
+  background: transparent;
+  border: none;
+}
+
+.deletedBooks .glyphicon {
+  font-size: 30px;
+  color: black;
+}
+
+.deletedNum {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  z-index: 2;
+  top: -90%;
+  right: -50%;
+  border: 2px solid black;
+  background-color: red;
+  border-radius: 50px;
+  font-size: 20px;
+  padding-bottom: 10px;
 }
 
 /* search screen */
