@@ -7,6 +7,7 @@ import Header from './Header'
 import Search from './Search'
 import Deleted from './Deleted'
 import MoreInfo from './MoreInfo'
+import { createBrowserHistory as createHistory } from "history"
 
 class App extends Component {
 
@@ -18,6 +19,7 @@ class App extends Component {
     read: [],
     recentlyDeleted: [],
     numberOfShelves: ['currentlyReading', 'wantToRead', 'read'],
+    currentBook: [],
   }
 
 /* just after the component mounts all of the book are fetched */
@@ -29,7 +31,9 @@ class App extends Component {
         console.log('received all my books');
       });
       this.sortBooks(response);
+
     });
+    this.listenHistory();
   }
 
 /* sorts all of the received books into correct shelves based on individual book shelf */
@@ -49,7 +53,9 @@ class App extends Component {
 * Function is responsible for the shelves changed from the !main! page.
 */
   changeShelf(book, checker) {
+    console.log(book);
     if (checker === 'moreInfo') {
+      this.setCurrentBook(book);
       return;
     }
     console.log(this.state.bookChange);
@@ -73,6 +79,13 @@ class App extends Component {
       }
       this.updateBooks(book, checker);
     }
+  }
+
+  /* sets the current book */
+  setCurrentBook(book) {
+    this.setState({
+      currentBook: book,
+    });
   }
 
 /* changes a book's shelf */
@@ -164,9 +177,30 @@ class App extends Component {
 
 /* update function, updates a book in the api */
   updateBooks(book, checker) {
-    BooksAPI.update(book, checker).then(response => {
+      BooksAPI.update(book, checker).then(response => {
         console.log('book api updated');
       });
+  }
+
+  history = createHistory(this.props);
+
+  listenHistory() {
+    this.history.listen((location) => {
+      console.log(location);
+    });
+  }
+
+  pushHistory(pathname) {
+    console.log(pathname);
+    console.log(this.history);
+    this.history.push(pathname);
+  }
+
+  pushSearch(query) {
+    this.history.push({
+      pathname: '/search',
+      search: `?=${query}`
+    });
   }
 
   render() {
@@ -183,6 +217,7 @@ class App extends Component {
             changeShelf={(book, checker) => this.changeShelf(book, checker)}
             shelves={this.state.numberOfShelves}
             recentlyDeleted={this.state.recentlyDeleted}
+            updateUrl={(pathname, action) => this.pushHistory(pathname, action)}
             />
           </div>
         )}
@@ -195,6 +230,7 @@ class App extends Component {
             allBooks={this.state.allBooks}
             addBooks={(book) => this.addBook(book)}
             getBook={(book, checker) => this.getBook(book, checker)}
+            updateUrl={this.pushSearch}
             />
           </div>
         )}
@@ -213,7 +249,8 @@ class App extends Component {
           <div>
             <Header/>
             <MoreInfo
-
+            currentBook={this.state.currentBook}
+            history={this.history}
             />
           </div>
         )}
