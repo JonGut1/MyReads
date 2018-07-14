@@ -209,7 +209,7 @@ class App extends Component {
 
   /* saves the search query, and replaces an old pathname with a new pathname */
   saveSearch(query) {
-    const url = `/search/query=?${query}`
+    const url = `/MyReads/search/query=?${query}`
     this.history.replace(url);
     this.setState({
       searchData: query,
@@ -217,7 +217,7 @@ class App extends Component {
   }
 
   defaultUrl() {
-    this.history.replace('/search');
+    this.history.replace('/MyReads/search');
   }
 
   /* synchronous timout function */
@@ -246,7 +246,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Route exact path={`${process.env.PUBLIC_URL}/MyReads`} render={() => (
+        <Route exact path='/MyReads' render={() => (
           <div>
             <Header/>
             <Main
@@ -282,7 +282,7 @@ class App extends Component {
           </div>
         )}
         />
-        <Route path={`${process.env.PUBLIC_URL}/deleted`} render={() => (
+        <Route path='/MyReads/deleted' render={() => (
           <div>
             <Header/>
             <Deleted
@@ -292,7 +292,7 @@ class App extends Component {
           </div>
         )}
         />
-        <Route path={`${process.env.PUBLIC_URL}/moreinfo`} render={() => (
+        <Route path='/MyReads/moreinfo' render={() => (
           <div>
             <Header/>
             <MoreInfo
