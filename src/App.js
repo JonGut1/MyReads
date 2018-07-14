@@ -68,7 +68,7 @@ class App extends Component {
   /* Changes the shelves depending on the selected option.
   * Function is responsible for the shelves changed from the !main! page.
   */
-  changeShelf = (book, checker, e) => {
+  changeShelf(book, checker, e) {
     this.node.target = e !== undefined ? e.target : 'search';
     this.node.id = book.id;
     if (checker === 'moreInfo') {
@@ -79,13 +79,12 @@ class App extends Component {
         this.changeClass(this.node, 'delete');
         this.timeout('delete', book.shelf, book, 'send');
       } else if (book.shelf === 'none') {
-        this.changeClass(this.node, 'delete');
         const c = this.ultimateDelete('recentlyDeleted', book);
         if (checker === 'deletion') {
           return;
         }
         if (c === true) {
-          this.timeout('insert', checker, this.bookChange(book, checker));
+          this.insertBook(checker, this.bookChange(book, checker));
         } else {
           this.getBook(book, checker);
         }
@@ -255,7 +254,7 @@ class App extends Component {
             currentlyReading={this.state.currentlyReading}
             wantToRead={this.state.wantToRead}
             read={this.state.read}
-            changeShelf={this.changeShelf}
+            changeShelf={(book, checker, e) => this.changeShelf(book, checker, e)}
             shelves={this.state.numberOfShelves}
             recentlyDeleted={this.state.recentlyDeleted}
             saveURL={(pathname) => this.saveHistory(pathname)}
@@ -270,7 +269,7 @@ class App extends Component {
             <Header
             defaultUrl={() => this.defaultUrl()}/>
             <Search
-            changeShelf={(book, checker) => this.changeShelf(book, checker)}
+            changeShelf={(book, checker, e) => this.changeShelf(book, checker, e)}
             allBooks={this.state.allBooks}
             addBooks={(book) => this.addBook(book)}
             shelves={this.state.numberOfShelves}
@@ -288,7 +287,7 @@ class App extends Component {
             <Header/>
             <Deleted
               recentlyDeleted={this.state.recentlyDeleted}
-              changeShelf={this.changeShelf}
+              changeShelf={(book, checker, e) => this.changeShelf(book, checker, e)}
             />
           </div>
         )}
