@@ -246,7 +246,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Route exact path='/' render={() => (
+        <Route exact path={`${process.env.PUBLIC_URL}/`} render={() => (
           <div>
             <Header/>
             <Main
@@ -264,7 +264,7 @@ class App extends Component {
           </div>
         )}
         />
-        <Route path='/search' render={() => (
+        <Route path={`${process.env.PUBLIC_URL}/search`} render={() => (
           <div>
             <Header
             defaultUrl={() => this.defaultUrl()}/>
@@ -282,7 +282,7 @@ class App extends Component {
           </div>
         )}
         />
-        <Route path='/deleted' render={() => (
+        <Route path={`${process.env.PUBLIC_URL}/deleted`} render={() => (
           <div>
             <Header/>
             <Deleted
@@ -292,7 +292,7 @@ class App extends Component {
           </div>
         )}
         />
-        <Route path='/moreinfo' render={() => (
+        <Route path={`${process.env.PUBLIC_URL}/moreinfo`} render={() => (
           <div>
             <Header/>
             <MoreInfo
