@@ -1,47 +1,51 @@
+/* Deleted.js */
+
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { BookInfo } from './Main'
+import { BookImage } from './Main'
 
+/* images */
+import CoverNone from './icons/none.jpg'
+
+/*
+* button component responsible for displaying the oprions button,
+* and displaying the options list.
+*/
 function ButtonCont(props) {
 		return (
-			<div className='imgCont'>
-				<img
-				src={(() => {
-					if (props.book.imageLinks) {
-						return props.book.imageLinks.thumbnail;
-					} else {
-						return '';
-					}
-				})()}
-				/>
+			<div>
 				<button onClick={() => props.expand(props.book.id)} className='expand'><span className='glyphicon glyphicon-triangle-bottom'></span></button>
 				{props.expanded === props.book.id && (
-					<ul role='datalist' className='dropDownList'>
-						{props.optionsList.map(name => (
-							<li key={name.class + name.title} tabIndex='0'
-									onClick={() => props.changeShelf(props.book, name.class)}>
-							{(() => {
-								if (name.title === 'Expand -->') {
-									<Link to='/expand/{props.book.title}'>
-									</Link>
-								}
-							})()}
-							<span className='glyphicon glyphicon-ok'></span>{name.title}
-							</li>
-						))}
+					<ul className='dropDownList'>
+						{props.optionsList.map(name => {
+							return name.class !== 'moreInfo' ?
+								<li key={name.class + name.title} tabIndex='0' select={props.book.shelf === name.class ? 'true' : 'false'}
+									onClick={(e) => props.changeShelf(props.book, name.class, e)}>
+									<span className='glyphicon glyphicon-ok'></span>{name.title}
+								</li>
+								:
+								<Link to={`/moreinfo/${props.book.id}=${props.book.title}`}
+								onClick={() => props.saveUrl(`/moreinfo/${props.book.id}=${props.book.title}`)}
+								key={name.class + name.title} tabIndex='0'
+								select={props.book.shelf === name.class ? 'true' : 'false'}>
+									<span className='glyphicon glyphicon-ok'></span>{name.title}
+								</Link>
+						})}
 					</ul>
 				)}
 			</div>
 		)
 }
 
+/*
+* Deleted component. It is here where the route is redirected. And from this component
+* the delete page is built
+*/
 class Deleted extends Component {
 	constructor(props) {
 		super(props);
-		this.titles = {
-			currentlyReading: 'Currently Reading',
-			wantToRead: 'Want To Read',
-			read: 'Already Read',
-		};
+		/* this is used so that naming would be returned based on the book's shelf */
 		this.optionsList = [
 			{
 				class: 'currentlyReading',
@@ -70,7 +74,8 @@ class Deleted extends Component {
 	state = {
 		expanded: false,
 	}
-	/* expands the options button on the book */
+
+	/* expands the options list when the button is clicked */
 	expand(id, checker) {
 		if (checker === false && this.state.expanded === false) {
 			return;
@@ -88,10 +93,19 @@ class Deleted extends Component {
 
 	render() {
 		return (
-			<div>
-				<ul className='list'>
+			<div className='trashBin'>
+				<ul className='list' viewtype='grid'>
 					{this.props.recentlyDeleted.map(book => (
-						<li className='listItem' key={book.id}>
+						<li className='listItem' key={book.id} animation={(() => {
+						if (this.props.classNames !== undefined && this.props.classNames.id === book.id) {
+							return this.props.classNames.action;
+						} else {
+							return '';
+						}
+					})()}>
+						<img src={`${CoverNone}`} className='bookCover' alt={`Cover of ${book.title} book`}/>
+						<div className='imgCont'>
+							<BookImage book={book}/>
 							<ButtonCont
 								key={book.id + book.title}
 								book={book}
@@ -101,18 +115,8 @@ class Deleted extends Component {
 								optionsList={this.optionsList}
 								ultimateDelete={this.props.ultimateDelete}
 							/>
-							<span className='bookTitle'>{book.title}</span>
-								<ul className='authorsCont'>
-									{(() => {
-										if (book.authors) {
-											return book.authors.map(author => (
-												<li key={author + book.title}>
-													<span className='authors'>{author}</span>
-												</li>
-											));
-										}
-									})()}
-								</ul>
+						</div>
+						<BookInfo book={book}/>
 						</li>
 					))}
 				</ul>
