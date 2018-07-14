@@ -1,0 +1,51 @@
+/* search screen */
+.bookResults .list {
+	justify-content: center;
+	margin left: auto;
+	margin-right: auto;
+	width: 90%;
+}
+
+.bookResults .listItem {
+	margin-right: 1em;
+	margin-left: 1em;
+}
+
+.inputCont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 8vh;
+  margin-top: 1em;
+}
+
+.inputField {
+  font-size: 30px;
+  border: none;
+  padding-left: 1em;
+  padding-right: 1em;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.4);
+  width: 97%;
+  height: 97%;
+}
+
+.list[viewtype='search'] {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  min-height: 85%;
+}
+
+.list[viewtype='search'] .listItem {
+  margin-top: 3em;
+}
+
+@media screen and (max-width: 800px) {
+	.bookResults .list {
+		justify-content: center;
+		margin: 0;
+		width: 100%;
+	}
+}

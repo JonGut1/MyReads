@@ -1,53 +1,9 @@
-header {
-  height: 15vh;
-  background: linear-gradient(to bottom right, #F5F6CE, #FA5858);
-}
-
-header .title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 3em;
-  width: 100%;
-  height: 100%;
-  color: black;
-  font-family: 'Galada', cursive;
-  text-shadow: 0px 5px rgba(0,0,0,0.2);
-  transition: 0.5s;
-}
-
-header .title:hover {
-  transition: 0.5s;
-  color: white;
-}
-
-header .linkTag {
-  text-decoration: none;
-}
-
 ul {
+  padding-left: 0;
   list-style-type: none;
-  padding: 0;
-  margin: 0;
 }
 
-/* main lists */
-
-.currentlyReading, .wantToRead, .read {
-  height: 65vh;
-}
-
-.titleBar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  height: 15%;
-  width: 100%;
-  border-bottom: 1px solid #E6E6E6;
-}
-
-.title {
+.titles {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,94 +12,17 @@ ul {
   width: 80%;
 }
 
-.buttonViewCont {
-  width: 20%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-}
-
-.listView, .gridView {
-  margin-right: 10px;
-  margin-left: 10px;
-  width: 5em;
-  height: 5em;
-  border: none;
-  background-color: white;
-  padding: 0;
-  transition: 0.3s;
-  border-radius: 50px;
-}
-
-.listView[viewtype='list'] {
-  background-color: #FA8258;
-}
-
-.listView[viewtype='list'] .glyphicon{
-  color: white;
-}
-
-.gridView[viewtype='grid'] {
-  background-color: #FA8258;
-}
-
-.gridView[viewtype='grid'] .glyphicon{
-  color: white;
-}
-
-.listView:hover, .gridView:hover {
-  background-color: #FA8258;
-  transition: 0.3s;
-}
-
-.listView .glyphicon:hover, .gridView .glyphicon:hover {
-  color: white;
-  transition: 0.3s;
-}
-
-.listView .glyphicon, .gridView .glyphicon {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-  color: #FA8258;
-  padding: 0;
-  margin: 0;
-  margin: auto;
-  transition: 0.3s;
-}
-
 .list {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  height: 85%;
-  width: 70%;
-  margin-right: auto;
+  height: 90%;
+  width: 80%;
+  margin-right: 3em;
   margin-left: auto;
+  margin-top: 2em;
+  padding-bottom: 2em;
   overflow-x: scroll;
-}
-
-.list[viewtype='grid'] {
-  display: flex;
-  flex-wrap: wrap;
-  min-height: 85%;
-  overflow-x: hidden;
-}
-
-.list[viewtype='search'] {
-  display: flex;
-  flex-wrap: wrap;
-  width: 90%;
-  min-height: 85%;
-}
-
-.list[viewtype='search'] .listItem {
-  margin-top: 3em;
 }
 
 .list .listItem {
@@ -152,10 +31,30 @@ ul {
   align-items: center;
   flex-direction: column;
   width: 300px;
-  height: 400px;
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+  height: 450px;
+  min-height: 450px;
+  min-width: 300px;
+  box-shadow: -10px 10px 10px 0px rgba(0,0,0,0.4);
   margin-left: 10px;
   margin-right: 10px;
+  position: relative;
+  transition: 0.2s;
+}
+
+.list .listItem[animation='delete'] {
+  transition: 0.2s;
+  transform: scale(0);
+}
+
+.list .listItem[animation='insert'] {
+  transition: 0.2s;
+  transform: scale(1);
+}
+
+.bookInfo {
+  width: 80%;
+  height: 40%;
+  margin-left: 7%;
   position: relative;
 }
 
@@ -163,21 +62,38 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: wrap;
   font-size: 16px;
-  height: 20%;
-  width: 90%;
-  overflow: auto;
+  font-weight: bold;
+  color: black;
+  height: 50%;
+  width: 100%;
+  border-bottom: 3px solid black;
 }
 
 .authorsCont {
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-direction: column;
-  height: 20%;
-  width: 90%;
-  overflow: auto;
+  align-items: center;
+  font-size: 16px;
+  height: 50%;
+  width: 100%;
+  border-bottom: 3px solid black;
+}
+
+.authorsCont li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 100%;
+}
+
+.authorsCont span {
+  border-bottom: 1px solid black;
 }
 
 .list .imgCont {
@@ -186,11 +102,13 @@ ul {
   align-items: center;
   position: relative;
   width: 80%;
-  height: 60%;
+  height: 50%;
+  padding-left: 5%;
 }
 
-.list img {
+.imgCont img {
   height: 90%;
+  border: 5px solid #BC8504;
 }
 
 .authors {
@@ -212,8 +130,6 @@ ul {
   transition: 0.2s;
 }
 
-
-
 .list .expand:hover {
   transition: 0.2s;
   transform: scale(1.2);
@@ -233,32 +149,34 @@ ul {
 .dropDownList {
   position: absolute;
   z-index: 1;
-  width: 80%;
-  height: 50%;
+  width: 200px;
+  height: 150px;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
   background-color: white;
-  bottom: -50%;
+  bottom: -65%;
   right: -25%;
   animation-name: dropDown;
   animation-duration: 0.3s;
 }
 
 @keyframes dropDown {
-    0%   {bottom: 10%; right: 10%; height: 0%; width: 0%; opacity: 0;}
-    100% {bottom: -50%; right: -25%; height: 50%; width: 80%;}
+    0%   {bottom: 10%; right: 10%; height: 0px; width: 0px; opacity: 0;}
+    100% {bottom: -65%; right: -25%; height: 150px; width: 200px;}
 }
 
-.dropDownList li {
+.dropDownList li, .dropDownList a {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 25%;
+  height: 20%;
   color: #FA8258;
   transition: 0.2s;
+  border: 1px solid silver;
+  text-decoration: none;
 }
 
-.dropDownList li .glyphicon {
+.dropDownList li .glyphicon, .dropDownList a .glyphicon {
   visibility: hidden;
   color: black;
   padding: 0;
@@ -267,12 +185,13 @@ ul {
   width: 5%;
 }
 
-.dropDownList li:hover {
+.dropDownList li:hover, .dropDownList a:hover {
   cursor: pointer;
   transition: 0.2s;
   transform: scale(1.1);
   background-color: #FA8258;
   color: white;
+  border: none;
 }
 
 .moreInfoLink {
@@ -280,114 +199,26 @@ ul {
   height: 100%;
 }
 
-.dropDownList li[select='true'] .glyphicon {
+.dropDownList li[select='true'] .glyphicon, .dropDownList a[select='true'] .glyphicon {
   visibility: visible;
 }
 
-.readingStatus {
+.bookCover {
   position: absolute;
-  z-index: 1;
-  border-radius: 30px;
+  z-index: -1;
   display: block;
-  background-color: silver;
-  top: -2.5%;
-  left: 10%;
-  width: 10%;
-  height: 5%;
-}
-
-.readingStatus[sort='currentlyReading'] {
-  background-color: #FAAC58;
-}
-
-.readingStatus[sort='wantToRead'] {
-  background-color: #5882FA;
-}
-
-.readingStatus[sort='read'] {
-  background-color: #82FA58;
-}
-
-.readingStatus[sort='none'] {
-  background-color: silver;
-}
-
-.addBook {
-  position: fixed;
-  z-index: 1;
-  bottom: 7%;
-  left: 7%;
-  width: 5em;
-  height: 5em;
-  border-radius: 50px;
-  border: none;
-  background-color: #FA8258;
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
-  transition: 0.3s;
-}
-
-.addBook:hover {
-  transition: 0.3s;
-  transform: scale(1.2);
-}
-.addBook .glyphicon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 40px;
-  color: white;
-  width: 100%;
   height: 100%;
-}
-
-.deletedBooks {
-  position: fixed;
-  z-index: 1;
-  top: 30%;
-  left: 5%;
-  width: 5em;
-  height: 5em;
-  background: transparent;
-  border: none;
-}
-
-.deletedBooks .glyphicon {
-  font-size: 30px;
-  color: black;
-}
-
-.deletedNum {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  z-index: 2;
-  top: -90%;
-  right: -50%;
-  border: 2px solid black;
-  background-color: red;
-  border-radius: 50px;
-  font-size: 20px;
-  padding-bottom: 10px;
-}
-
-/* search screen */
-
-.inputCont {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  height: 8vh;
-  margin-top: 1em;
 }
 
-.inputField {
-  font-size: 30px;
-  border: none;
-  padding-left: 1em;
-  padding-right: 1em;
-  border-radius: 10px;
-  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.4);
-  width: 97%;
-  height: 97%;
+@media screen and (max-width: 800px) {
+  .list .listItem {
+    width: 250px;
+    height: 400px;
+    min-height: 400px;
+    min-width: 250px;
+  }
+  .dropDownList {
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.4);
+  }
 }

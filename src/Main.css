@@ -1,0 +1,162 @@
+.currentlyReading, .wantToRead, .read {
+  min-height: 40vh;
+  margin-top: 3em;
+}
+
+.titleBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  height: 15%;
+  width: 100%;
+  border-bottom: 1px solid #E6E6E6;
+}
+
+.addBook {
+  position: fixed;
+  z-index: 1;
+  bottom: 7%;
+  left: 7%;
+  width: 5em;
+  height: 5em;
+  border-radius: 50px;
+  border: none;
+  background-color: #FA8258;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.addBook:hover {
+  transition: 0.3s;
+  transform: scale(1.2);
+}
+
+.addBook .glyphicon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  color: white;
+  width: 100%;
+  height: 100%;
+}
+
+.deletedBooks {
+  position: fixed;
+  z-index: 1;
+  top: 30%;
+  left: 5%;
+  width: 5em;
+  height: 5em;
+  background: transparent;
+  border: none;
+}
+
+.deletedBooks .glyphicon {
+  font-size: 30px;
+  color: black;
+}
+
+.deletedNum {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  z-index: 2;
+  top: -90%;
+  right: -50%;
+  border: 2px solid black;
+  background-color: red;
+  border-radius: 50px;
+  font-size: 20px;
+  padding-bottom: 10px;
+}
+
+.listView[viewtype='list'] {
+  background-color: #FA8258;
+}
+
+.listView[viewtype='list'] .glyphicon{
+  color: white;
+}
+
+.gridView[viewtype='grid'] {
+  background-color: #FA8258;
+}
+
+.gridView[viewtype='grid'] .glyphicon{
+  color: white;
+}
+
+.listView:hover, .gridView:hover {
+  background-color: #FA8258;
+  transition: 0.3s;
+}
+
+.listView .glyphicon:hover, .gridView .glyphicon:hover {
+  color: white;
+  transition: 0.3s;
+}
+
+.listView .glyphicon, .gridView .glyphicon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  color: #FA8258;
+  padding: 0;
+  margin: 0;
+  margin: auto;
+  transition: 0.3s;
+}
+.list[viewtype='grid'] {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 90%;
+  overflow-x: hidden;
+}
+.list[viewtype='grid'] .listItem {
+  margin-top: 3em;
+}
+
+.buttonViewCont {
+  min-width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.listView, .gridView {
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 4em;
+  height: 4em;
+  border: none;
+  background-color: white;
+  padding: 0;
+  transition: 0.3s;
+  border-radius: 50px;
+}
+
+@media screen and (max-width: 800px) {
+  .listView, .gridView {
+    width: 2.5em;
+    height: 2.5em;
+  }
+  .listView .glyphicon, .gridView .glyphicon {
+    font-size: 1.2em;
+  }
+  .deletedBooks {
+    position: absolute;
+    left: 1%;
+    top: 14%;
+  }
+  .list[viewtype='grid'] {
+    flex-wrap: none;
+    justify-content: center;
+  }
+}
