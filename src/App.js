@@ -246,7 +246,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Route exact path={`${process.env.PUBLIC_URL}/`} render={() => (
+        <Route exact path={`${process.env.PUBLIC_URL}/MyReads`} render={() => (
           <div>
             <Header/>
             <Main

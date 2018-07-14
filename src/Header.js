@@ -12,7 +12,7 @@ class Header extends Component {
 	render() {
 		return (
 			<header>
-			<Link to='/' onClick={this.props.defaultUrl} className='linkTag'>
+			<Link to='/MyReads' onClick={this.props.defaultUrl} className='linkTag'>
 				<span className='titles'>Jonas Book Club</span>
 			</Link>
 			</header>
