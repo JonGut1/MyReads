@@ -1,153 +1,108 @@
 import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
+import './MoreInfo.css';
 
+/*
+* A component for the right part of the More info page.
+* it displays a book's description and some links.
+*/
+function MoreInfoRight(props) {
+	return (
+		<ul className='book-more-info-list-right'>
+			<li className='description'><span>Description</span><p tabIndex='1'>{props.book.description}</p></li>
+			<div className='linksCont'>
+				<a href={props.book.previewLink}>Preview Link</a>
+				<a href={props.book.infoLink}>Info Link</a>
+			</div>
+		</ul>
+	)
+}
+
+/*
+* A component for the left part of the More info page.
+* it displays a book's image and a title and authors.
+*/
+function MoreInfoLeft(props) {
+	return (
+		<ul tabIndex='1' className='book-more-info-list-left'>
+			<span className='title'>{props.book.title}</span>
+			<li className='imageLinks'><img src={props.book.imageLinks && props.book.imageLinks.thumbnail && (
+				props.book.imageLinks.thumbnail
+				)} alt={`Cover of ${props.book.title} book`}/>
+				<ul className='authorsCont'>
+					{(() => {
+						if (props.book.authors) {
+							return props.book.authors.map(author => (
+								<li key={author + props.book.title}>
+									<span className='authors'>{author}</span>
+								</li>
+							));
+						}
+					})()}
+				</ul>
+				<span className='publisher'>{props.book.publisher && (props.book.publisher)}</span>
+			</li>
+		</ul>
+	)
+}
+
+/*
+* MoreInfo component. It is here where the route is redirected. And from this component
+* the MoreInfo page is built
+*/
 class MoreInfo extends Component {
-	constructor(props) {
-		super(props);
-		this.names = {
-			title: 'Title',
-			authors: 'Author',
-			publishedDate: 'Published Date',
-			publisher: 'Publisher',
-			averageRating: 'Average Rating',
-			language: 'Language',
-			pageCount: 'Page Count',
-			description: 'Description',
-			infoLink: 'More Information',
-			previewLink: 'Preview the book',
-		}
-		this.titles = {
-			currentlyReading: 'Currently Reading',
-			wantToRead: 'Want To Read',
-			read: 'Already Read',
-			none: 'None',
-		};
-		this.elementsFirst = {
-			extraData: ['shelf', 'id'],
-			header: ['title', 'authors', 'publishedDate', 'publisher'],
-			main: ['imageLinks', 'averageRating', 'language', 'pageCount'],
-		};
-		this.elementsSecond = {
-			main: ['description', 'infoLink', 'previewLink'],
-		};
-	}
-
+	/*
+ 	* the components states
+	*/
 	state = {
-		firstPage: [],
-		secondPage: [],
+		book: '',
 	}
 
+	/*
+	* executes just after the component mounts
+	*/
 	componentDidMount() {
 		this.extractRegExp();
 	}
 
+	/*
+	* extracts book's id from the url string
+	*/
 	extractRegExp() {
-		console.log(this.props.history);
-		const pathName = this.props.history.location.pathname;
-		const pathNameSplit = pathName.split(/\/(.*?)\=/);
+		let pathName = this.props.history.location.pathname;
+		if (!pathName.startsWith('/moreinfo')) {
+			pathName = this.props.historyData;
+		}
+		const pathNameSplit = pathName.split(/\/(.*?)=/);
 		const bookID = pathNameSplit[1].split(/\//);
 		this.getBook(bookID[1]);
 	}
 
+	/*
+	* gets the book based on the parameter. The parameter indicates,
+	* the books id.
+	*/
 	getBook(bookId) {
-		console.log(bookId);
+		if (this.props.currentBook) {
+			this.sortProperties(this.props.currentBook);
+			return;
+		}
 		BooksAPI.get(bookId).then(response => {
-			console.log(response);
-			this.sortProperties(response);
-		});
-	}
-
-	sortProperties(book) {
-		const first = {
-			extraData: [],
-			header: [],
-			main: [],
-		};
-
-		const second = {
-			main: [],
-		};
-
-		for (let el in this.elementsFirst) {
-				first[el] = this.elementsFirst[el].map(data => {
-					if (book[data]) {
-						console.log(el);
-						if (book[data].thumbnail) {
-							return [data, book[data].thumbnail];
-						}
-						if (book[data].length > 1 && data === 'authors') {
-							let authors = '';
-							this.names.authors = 'Authors'
-							book[data].forEach(author => {
-								authors += authors ? `, ${author}` : author;
-							});
-
-							return [data, authors];
-						}
-						return [data, book[data]];
-					} else {
-						return [data, 'Unavailable'];
-					}
-				});
-		}
-
-		for (let el in this.elementsSecond) {
-				second[el] = this.elementsSecond[el].map(data => {
-					if (book[data]) {
-						return [data, book[data]];
-					} else if (data === 'description') {
-						return [data, 'Description Unavailable'];
-					} else {
-						return [data, 'Link could not be found']
-					}
-				});
-		}
-
-		console.log(first, second);
-
-		this.setState({
-			firstPage: first,
-			secondPage: second,
-		}, () => {
-			console.log(this.state);
+			this.setState({
+				book: response,
+			});
 		});
 	}
 
 	render() {
+		const book = this.state.book;
 		return (
-			<div className='bookInfo'>
-				<div className='firstPage'>
-					{this.state.firstPage.header && (
-						<ul className='bookHeaderLeft'>
-							<div className='shelf'>{this.titles[this.state.firstPage.extraData[0][1]]}</div>
-							{this.state.firstPage.header.map(el => (
-								<li key={el[0]} className={el[0]}><span>{this.names[el[0]]}</span><p>{el[1]}</p></li>
-							))}
-						</ul>
-					)}
-					{this.state.firstPage.main && (
-						<ul className='bookMainLeft'>
-							{this.state.firstPage.main.map(el => {
-								return el[0] === 'imageLinks' && el[1] !== 'Unavailable' ?
-								<li key={el[0]} className={el[0]}><img src={el[1]}/></li>
-								:
-								<li key={el[0]} className={el[0]}><span>{this.names[el[0]]}</span><p>{el[1]}</p></li>
-							})}
-						</ul>
-					)}
+			<div className='book-more-info'>
+				<div className='backButtonCont'>
+					<button arria-label='go back' arria-require='true' onClick={this.props.history.goBack} className='backButton'><span className='glyphicon glyphicon-arrow-left'></span></button>
 				</div>
-				<div className='secondPage'>
-					{this.state.secondPage.main && (
-						<ul className='bookMainRight'>
-							{this.state.secondPage.main.map(el => {
-								return el[0] === 'infoLink' || el[0] === 'previewLink' ?
-								<li key={el[0]} className={el[0]}><a href={el[1]}>{this.names[el[0]]}</a></li>
-								:
-								<li key={el[0]} className={el[0]}><span>{this.names[el[0]]}</span><p>{el[1]}</p></li>
-							})}
-						</ul>
-					)}
-				</div>
+				<MoreInfoLeft book={book}/>
+				<MoreInfoRight book={book}/>
 			</div>
 		);
 	}
