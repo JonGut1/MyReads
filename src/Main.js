@@ -216,8 +216,8 @@ class Main extends Component {
 	render() {
 		return (
 			<main onClick={() => this.expand(false, false)}>
-				<Link to='/search'><button onClick={this.props.defaultUrl} className='addBook'><span className='glyphicon glyphicon-search'></span></button></Link>
-				<Link to='/deleted'><button className='deletedBooks'><span className='glyphicon glyphicon-trash'>{this.props.recentlyDeleted.length > 0 && (
+				<Link to='/MyReads/search'><button onClick={this.props.defaultUrl} className='addBook'><span className='glyphicon glyphicon-search'></span></button></Link>
+				<Link to='/MyReads/deleted'><button className='deletedBooks'><span className='glyphicon glyphicon-trash'>{this.props.recentlyDeleted.length > 0 && (
 					<span className='deletedNum'>{this.props.recentlyDeleted.length}</span>)}</span></button></Link>
 					{this.props.shelves.map(shelf => (
 						<div key={shelf} className={shelf}>

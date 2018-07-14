@@ -70,10 +70,12 @@ class MoreInfo extends Component {
 	*/
 	extractRegExp() {
 		let pathName = this.props.history.location.pathname;
-		if (!pathName.startsWith('/moreinfo')) {
+		if (!pathName.startsWith('/MyReads/moreinfo')) {
 			pathName = this.props.historyData;
 		}
-		const pathNameSplit = pathName.split(/\/(.*?)=/);
+		const path = pathName.split('MyReads');
+		const pathNameSplit = path[1].split(/\/(.*?)=/);
+		console.log(pathNameSplit);
 		const bookID = pathNameSplit[1].split(/\//);
 		this.getBook(bookID[1]);
 	}

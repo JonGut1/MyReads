@@ -101,6 +101,7 @@ class App extends Component {
   bookChange(book, checker) {
     let bookShelf = book;
     bookShelf.shelf = checker;
+    console.log('Booke changed shelves');
     return bookShelf;
   }
 
@@ -264,7 +265,7 @@ class App extends Component {
           </div>
         )}
         />
-        <Route path={`${process.env.PUBLIC_URL}/search`} render={() => (
+        <Route path='/MyReads/search' render={() => (
           <div>
             <Header
             defaultUrl={() => this.defaultUrl()}/>
