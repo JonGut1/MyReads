@@ -42,7 +42,7 @@ function ButtonCont(props) {
 									<span className='glyphicon glyphicon-ok'></span>{name.title}
 								</li>
 								:
-								<Link to={`/MyReads/moreinfo/${props.book.id}=${props.book.title}`} onClick={() => props.saveURL(`/MyReads/moreinfo/${props.book.id}=${props.book.title}`)} key={name.class + name.title} tabIndex='0' select={props.book.shelf === name.class ? 'true' : 'false'}>
+								<Link to={`/moreinfo/${props.book.id}=${props.book.title}`} onClick={() => props.saveURL(`/moreinfo/${props.book.id}=${props.book.title}`)} key={name.class + name.title} tabIndex='0' select={props.book.shelf === name.class ? 'true' : 'false'}>
 									<span className='glyphicon glyphicon-ok'></span>{name.title}
 								</Link>
 						})}
@@ -216,8 +216,8 @@ class Main extends Component {
 	render() {
 		return (
 			<main onClick={() => this.expand(false, false)}>
-				<Link to='/MyReads/search'><button onClick={this.props.defaultUrl} className='addBook'><span className='glyphicon glyphicon-search'></span></button></Link>
-				<Link to='/MyReads/deleted'><button className='deletedBooks'><span className='glyphicon glyphicon-trash'>{this.props.recentlyDeleted.length > 0 && (
+				<Link to='/search'><button onClick={this.props.defaultUrl} className='addBook'><span className='glyphicon glyphicon-search'></span></button></Link>
+				<Link to='/deleted'><button className='deletedBooks'><span className='glyphicon glyphicon-trash'>{this.props.recentlyDeleted.length > 0 && (
 					<span className='deletedNum'>{this.props.recentlyDeleted.length}</span>)}</span></button></Link>
 					{this.props.shelves.map(shelf => (
 						<div key={shelf} className={shelf}>

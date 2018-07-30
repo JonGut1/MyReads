@@ -247,7 +247,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Route exact path='/MyReads' render={() => (
+        <Route exact path='/' render={() => (
           <div>
             <Header/>
             <Main
@@ -265,7 +265,7 @@ class App extends Component {
           </div>
         )}
         />
-        <Route path='/MyReads/search' render={() => (
+        <Route path='/search' render={() => (
           <div>
             <Header
             defaultUrl={() => this.defaultUrl()}/>
@@ -283,7 +283,7 @@ class App extends Component {
           </div>
         )}
         />
-        <Route path='/MyReads/deleted' render={() => (
+        <Route path='/deleted' render={() => (
           <div>
             <Header/>
             <Deleted
@@ -293,7 +293,7 @@ class App extends Component {
           </div>
         )}
         />
-        <Route path='/MyReads/moreinfo' render={() => (
+        <Route path='/moreinfo' render={() => (
           <div>
             <Header/>
             <MoreInfo

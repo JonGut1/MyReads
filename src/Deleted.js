@@ -25,8 +25,8 @@ function ButtonCont(props) {
 									<span className='glyphicon glyphicon-ok'></span>{name.title}
 								</li>
 								:
-								<Link to={`/MyReads/moreinfo/${props.book.id}=${props.book.title}`}
-								onClick={() => props.saveUrl(`/MyReads/moreinfo/${props.book.id}=${props.book.title}`)}
+								<Link to={`/moreinfo/${props.book.id}=${props.book.title}`}
+								onClick={() => props.saveUrl(`/moreinfo/${props.book.id}=${props.book.title}`)}
 								key={name.class + name.title} tabIndex='0'
 								select={props.book.shelf === name.class ? 'true' : 'false'}>
 									<span className='glyphicon glyphicon-ok'></span>{name.title}
