@@ -2,7 +2,7 @@
   "name": "myreads",
   "version": "0.1.0",
   "private": true,
-  "homepahe": "http://jongut1.github.io/MyReads",
+  "homepahe": "http://jongut1.github.io/MyReads/",
   "dependencies": {
     "escape-string-regexp": "^1.0.5",
     "history": "^4.7.2",
