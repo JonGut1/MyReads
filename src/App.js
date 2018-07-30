@@ -247,7 +247,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Route exact path='/MyReads' render={() => (
+        <Route exact path='/' render={() => (
           <div>
             <Header/>
             <Main
